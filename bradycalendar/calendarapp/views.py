@@ -11,5 +11,8 @@ class EventList(generics.ListAPIView):
     serializer_class = EventSerializer
 
     def get_queryset(self):
-        month = self.request.GET.get('month', '')
-        return Event.objects.filter(month = month)
+        month = self.request.GET.get('month', None)
+        if month is not None:
+            return Event.objects.filter(month = month)
+        else:
+            return Event.objects

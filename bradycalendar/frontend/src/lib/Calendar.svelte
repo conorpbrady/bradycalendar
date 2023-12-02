@@ -1,14 +1,13 @@
 <script lang="ts">
-  export const month = 0;
-  export const year = 0;
+  import Day from './Day.svelte';
 
   const getStartOfMonth = () => {
-    return 5;
+    return 4;
   }
 
   const generateDays = () => {
     let start = getStartOfMonth();
-    let all_days = Array.from(Array(31).keys());
+    let all_days = Array.from(Array(32).keys());
     let cal_days = Array()
     while (all_days.length > 0) {
       let week = []
@@ -29,7 +28,43 @@
     return cal_days;
   }
 
+  async function getAllEvents(month)  {
+
+    const response = await fetch(`http://localhost:8000/api/events?month=${month}`)
+    const data = await response.json()
+ 
+    let eventsByDay = {}
+    for (event of data) { 
+
+    const dateObj = new Date(`${event.event_date} 12:00`);
+    const year = dateObj.getFullYear();
+    const day = dateObj.getDate();
+    let dayEvent = {};
+    dayEvent.anniversary = '';
+    dayEvent.death = '';
+    dayEvent.secondName = '';
+    if (event.is_anniversary) { 
+      dayEvent.anniversary = '<b><u>Anniversary</b></u>'
+      dayEvent.secondName = ` and ${event.second_name}`;
+    } 
+    
+    if (event.death_date) {
+      dayEvent.death = event.death_date;
+} 
+    dayEvent.name = event.name
+    dayEvent.year = year
+
+    if (day in eventsByDay) { 
+      eventsByDay[day].push(dayEvent);
+    } else {
+      eventsByDay[day] = [dayEvent];
+}
+  }
+  return eventsByDay
+  }
+
   const cal_days = generateDays();
+  const eventsPromise = getAllEvents(4);
 </script>
 
 <table>
@@ -42,12 +77,15 @@
   </thead>
 
   <tbody>
+    {#await eventsPromise }
+    {:then events}
     {#each cal_days as row}
       <tr>
         {#each row as day}
-        <td>{day}</td>
-      {/each}
+          <Day events={events[day]} day={day} />
+        {/each}
     </tr>
   {/each}
+    {/await}
   </tbody>
 </table>
