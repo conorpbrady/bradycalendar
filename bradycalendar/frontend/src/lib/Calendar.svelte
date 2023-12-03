@@ -70,9 +70,20 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th><a href={null}>&lt;</a></th>
-    <th>December 2023</th>
+    <th colspan="3">December 2023</th>
     <th><a href={null}>&gt;</a></th>
+    <th></th>
+    </tr>
+    <tr>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
     </tr>
   </thead>
 

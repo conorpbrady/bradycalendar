@@ -4,9 +4,10 @@
 
 </script>
 
-<td class='day'>
+<td class={day == 0 ? 'noday' : 'day'}>
+  {#if day != 0}
   <span class="day-marker">{day != 0 ? day : ''}</span>
-
+  {/if}
   {#each events as event}
     <p>
     {event.anniversary}
