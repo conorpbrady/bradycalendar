@@ -1,13 +1,42 @@
 <script lang="ts">
   import Day from './Day.svelte';
 
-  const getStartOfMonth = () => {
-    return 4;
+
+  let month = new Date().getMonth() + 1;
+  let year = new Date().getFullYear();
+
+  const MONTHS = [, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const getStartOfMonth = (month, year) => {
+    let d = new Date(year, month - 1, 1);
+    return d.getDay();
   }
 
-  const generateDays = () => {
-    let start = getStartOfMonth();
-    let all_days = Array.from(Array(32).keys());
+  const getDaysInMonth = (month, year) => {
+    let d = new Date(year, month, 0)
+    return d.getDate();
+  }
+
+  const increment = () => {
+    console.log('hi');
+    if(month == 12) {
+      year = year + 1;
+      month = 1;
+      } else {
+      month = month + 1; 
+      }
+      }
+      
+  const decrement = () => {
+    if(month == 1) {
+      year = year - 1;
+      month = 12;
+      } else {
+      month = month - 1}
+      }
+      
+  const generateDays = (month, year) => {
+    let start = getStartOfMonth(month, year);
+    let all_days = Array.from(Array(getDaysInMonth(month, year))).map((e, i) => i+1);
     let cal_days = Array()
     while (all_days.length > 0) {
       let week = []
@@ -44,7 +73,7 @@
     dayEvent.death = '';
     dayEvent.secondName = '';
     if (event.is_anniversary) { 
-      dayEvent.anniversary = '<b><u>Anniversary</b></u>'
+      dayEvent.anniversary = 'Anniversary'
       dayEvent.secondName = ` and ${event.second_name}`;
     } 
     
@@ -63,20 +92,24 @@
   return eventsByDay
   }
 
-  const cal_days = generateDays();
-  const eventsPromise = getAllEvents(4);
+  $: cal_days = generateDays(month, year);
+  $: eventsPromise = getAllEvents(month);
 </script>
+<div class="heading-container">
+  <div class="nav">
+      <a href={null} on:click={decrement}>&lt;</a>
+  </div>
+  <div class="month-heading">
+    <h3>{MONTHS[month]} {year}</h3>
+  </div>
+  <div class="nav">
+    <a href={null} on:click={increment}>&gt;</a>
+  </div>
+</div>
 
 <table>
   <thead>
-    <tr>
-      <th></th>
-      <th><a href={null}>&lt;</a></th>
-    <th colspan="3">December 2023</th>
-    <th><a href={null}>&gt;</a></th>
-    <th></th>
-    </tr>
-    <tr>
+    <tr style="border: 1px solid black;margin-bottom:.3em;">
       <th>Sun</th>
       <th>Mon</th>
       <th>Tue</th>

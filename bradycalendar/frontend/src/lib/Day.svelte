@@ -10,13 +10,17 @@
   {/if}
   {#each events as event}
     <p>
-    {event.anniversary}
+      {#if event.anniversary != ''}
+      <span style='font-weight: bold;text-decoration:underline'>{event.anniversary}</span>
     <br>
-    {event.name} {event.secondName}
+      {/if}
+    {event.name}
     <br>
     {event.year}
+    {#if event.death != ''}
     <br>
     {event.death}
+    {/if}
     </p>
   {/each}
 </td>

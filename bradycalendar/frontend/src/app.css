@@ -53,3 +53,20 @@ td.day p {
   width: 100%;
   text-align: center;
 }
+div.heading-container {
+  width: 20%;
+  margin: auto;
+  display: flex;
+}
+
+div.nav {
+  flex: 2;
+  padding: 2em 0;
+}
+div.month-heading {
+  flex: 6;
+  padding: 2em 0;
+}
+div.month-heading h3 {
+  margin: 0;
+}
