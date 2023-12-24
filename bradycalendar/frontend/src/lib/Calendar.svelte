@@ -58,7 +58,7 @@
 
   async function getAllEvents(month)  {
 
-    const response = await fetch(`http://localhost:8000/api/events?month=${month}`)
+    const response = await fetch(`/api/events?month=${month}`)
     const data = await response.json()
  
     let eventsByDay = {}
