@@ -17,7 +17,6 @@
   }
 
   const increment = () => {
-    console.log('hi');
     if(month == 12) {
       year = year + 1;
       month = 1;
