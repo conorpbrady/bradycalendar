@@ -70,3 +70,8 @@ div.month-heading {
 div.month-heading h3 {
   margin: 0;
 }
+footer {
+  margin-top: 2rem;
+  background-color: #CCC;
+  width: 100%;
+}
