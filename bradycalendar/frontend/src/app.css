@@ -26,17 +26,32 @@ body {
 
 #app {
   text-align: center;
-  padding: 2em;
+}
+@media screen {
+  #app {
+    padding: 2em;
+  }
+}
+@media print {
+  #app {
+    padding: 0;
+  }
+  body {
+    font-size: .8em;
+  }
+  td.day {
+    height: 80px;
+  }
 }
 
 table {
-  width: 80%;
+  width: 100%;
   margin: auto;
   border-collapse: collapse;
 }
 
 td.day {
-  height: 200px;
+  height: 100px;
   border: 1px solid black;
   text-align: right;
   width: 14%;
@@ -52,9 +67,10 @@ span.day-marker {
 td.day p {
   width: 100%;
   text-align: center;
+  margin: 0;
 }
 div.heading-container {
-  width: 20%;
+  width: 25%;
   margin: auto;
   display: flex;
 }
@@ -70,8 +86,9 @@ div.month-heading {
 div.month-heading h3 {
   margin: 0;
 }
-footer {
-  margin-top: 2rem;
-  background-color: #CCC;
-  width: 100%;
+p.anniversary {
+  text-decoration: underline;
+}
+p.deceased {
+  font-style: italic;
 }
